@@ -14,6 +14,8 @@ module Octoauth
   ##
   # Define some sane defaults
   DEFAULTS = {
+    api: 'api.github.com'
+
   }
 
   ##
