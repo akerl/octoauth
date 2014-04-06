@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
   s.test_files  = `git ls-files spec/*`.split
 
   s.add_dependency 'octokit', '~> 3.0.0'
+  s.add_dependency 'userinput', '~> 0.0.2'
 
   s.add_development_dependency 'rubocop', '~> 0.19.0'
   s.add_development_dependency 'rake', '~> 10.2.1'

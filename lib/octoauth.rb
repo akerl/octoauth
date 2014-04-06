@@ -1,4 +1,5 @@
 require 'octokit'
+require 'userinput'
 
 ##
 # Octokit wrapper for simplifying authentication
@@ -14,50 +15,34 @@ module Octoauth
   ##
   # Define some sane defaults
   DEFAULTS = {
+    file: '~/.octoauth.yml'
   }
 
   ##
   # Authentication object
   class Auth
-    attr_reader :user
+    attr_reader :user, :note, :file
 
     def initialize(params = {})
       @user = nil
+      @file = params.delete(:file) || DEFAULTS[:file]
+      @note = params.delete(:note)
+      fail ArgumentError, 'Must provide a note for GitHub token' if @note.nil?
       @api = Octokit::Client.new params
     end
 
-    def login!(params = {})
-      unless params.include? 'scopes'
-        
-      end
-      params[:user] ||= get_user
-      params[:pass] ||= get_pass
-      params[:twofactor] ||= get_token if params.include? :twofactor
-      authenticate! params
-    end
-
     def authenticate!(params = {})
-      if params.include? :twofactor
-        params[:headers] = { 'X-GitHub-OTP' => params[:twofactor] }
-      end
-      @api.create_authorization(
-        scopes: params[:scopes],
-        headers: params[:headers]
-      )
-    rescue Octokit::OneTimePasswordRequired
-      params[:twofactor] = nil
-      login! params
     end
 
     private
 
-    def get_user
+    def login
     end
 
-    def get_pass
+    def password
     end
 
-    def get_token
+    def twofactor
     end
   end
 end
