@@ -1,5 +1,7 @@
 require 'yaml'
 
+##
+# Define Config spec
 module Octoauth
   ##
   # Define default file path
@@ -15,7 +17,7 @@ module Octoauth
     # Create new Config object, either ephemerally or from a file
     def initialize(params = {})
       @file = params[:file] == :default ? DEFAULT_FILE : params[:file]
-      @note = params[:note] || fail ArgumentError, 'A note must be provided'
+      @note = params[:note] || fail(ArgumentError, 'A note must be provided')
       @creds = parse
     end
 

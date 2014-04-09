@@ -1,6 +1,3 @@
-require 'octokit'
-require 'userinput'
-
 ##
 # Octokit wrapper for simplifying authentication
 module Octoauth
