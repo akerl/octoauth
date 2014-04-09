@@ -11,12 +11,6 @@ module Octoauth
       self::Auth.new(*args)
     end
   end
-
-  ##
-  # Define some sane defaults
-  DEFAULTS = {
-    file: '~/.octoauth.yml'
-  }
 end
 
 require 'octoauth/config'
