@@ -11,10 +11,7 @@ module Octoauth
     end
 
     def token
-      return @config.token if @config.token && valid_scope?(@config.token)
-    end
-
-    def valid_scope?(token)
+      return @config.token if @config.token
     end
   end
 end
