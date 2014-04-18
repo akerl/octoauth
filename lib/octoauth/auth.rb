@@ -14,11 +14,21 @@ module Octoauth
       return @config.token if @config.token
       auth[:user] = UserInput.new message: 'GitHub username', validation: /\w+/
       auth[:password] = UserInput.new message: 'Password'
-      if needs_two_factor auth
+      if needs_two_factor? auth
         auth[:twofactor] = UserInput.new message: '2FA token', validation: /\d+/
       end
       auth[:scopes] = scope ? scope : DEFAULT_SCOPE
       authenticate auth
+    end
+
+    def needs_two_factor?(auth)
+      login = Octokit::Client.new login: auth[:user], password: auth[:password]
+      begin
+        login.user
+      rescue Octokit::OneTimePasswordRequired
+        return true
+      end
+      false
     end
   end
 end
