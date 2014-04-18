@@ -7,11 +7,18 @@ module Octoauth
   class Auth
     def initialize(params = {})
       @config = Config.new params.subset(:file, :note)
-      @token = token
+      @token = token params[:scope]
     end
 
-    def token
+    def token(scope = nil)
       return @config.token if @config.token
+      auth[:user] = UserInput.new message: 'GitHub username', validation: /\w+/
+      auth[:password] = UserInput.new message: 'Password'
+      if needs_two_factor auth
+        auth[:twofactor] = UserInput.new message: '2FA token', validation: /\d+/
+      end
+      auth[:scopes] = scope ? scope : DEFAULT_SCOPE
+      authenticate auth
     end
   end
 end
