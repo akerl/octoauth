@@ -4,3 +4,4 @@ coverage/
 .bundle
 Gemfile.lock
 spec/examples/tmp.yml
+spec/examples/priv_test.yml
