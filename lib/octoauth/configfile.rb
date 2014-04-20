@@ -9,7 +9,7 @@ module Octoauth
 
   ##
   # Configuration object
-  class Config
+  class ConfigFile
     attr_reader :file
     attr_accessor :creds
 

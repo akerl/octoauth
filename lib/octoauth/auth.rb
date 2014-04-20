@@ -20,7 +20,7 @@ module Octoauth
     attr_reader :creds
 
     def initialize(params = {})
-      @config = Config.new params.subset(:file, :note)
+      @config = ConfigFile.new params.subset(:file, :note)
       @creds = load_creds params
     end
 
@@ -32,7 +32,7 @@ module Octoauth
 
     private
 
-    def load_token(params = {})
+    def load_creds(params = {})
       return @config.creds if @config.creds
       params[:login] ||= PROMPTS[:login].ask
       params[:password] ||= PROMPTS[:password].ask

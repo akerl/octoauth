@@ -10,5 +10,5 @@ module Octoauth
   end
 end
 
-require 'octoauth/config'
+require 'octoauth/configfile'
 require 'octoauth/auth'
