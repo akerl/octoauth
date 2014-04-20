@@ -30,7 +30,7 @@ module Octoauth
     private
 
     def get
-      return {} unless @file
+      return {} unless @file && File.exist?(@file)
       YAML.load File.read(@file)
     end
 
