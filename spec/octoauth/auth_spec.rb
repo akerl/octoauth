@@ -1,6 +1,21 @@
 require 'spec_helper'
+require 'fileutils'
 
+##
+# Shim object for mocking auth resources
 AuthShim = Struct.new(:note, :token)
+
+module UserInput
+##
+# Mask prints from UserInput
+  class Prompt
+    def print(*args)
+    end
+
+    def puts(*args)
+    end
+  end
+end
 
 describe Octoauth do
   describe Octoauth::Auth do
@@ -70,6 +85,31 @@ describe Octoauth do
           auth = Octoauth::Auth.new(note: 'foo')
           expect(auth.token).to eql 'qwertyqwertyqwertyqwerty'
         end
+      end
+    end
+
+    describe '#save' do
+      it 'saves the config to disk' do
+        random = rand(36**30).to_s(30)
+        FileUtils.rm_f 'spec/examples/tmp.yml'
+        stub_request(:post, 'https://user:pw@api.github.com/authorizations')
+          .with(body: "{\"note\":\"write_test\"}")
+          .to_return(
+            status: 200,
+            body: AuthShim.new('foo', random)
+          )
+        auth = Octoauth::Auth.new(
+          note: 'write_test',
+          file: 'spec/examples/tmp.yml',
+          login: 'user',
+          password: 'pw'
+        )
+        auth.save
+        new_auth = Octoauth::Auth.new(
+          note: 'write_test',
+          file: 'spec/examples/tmp.yml'
+        )
+        expect(new_auth.token).to eql random
       end
     end
   end

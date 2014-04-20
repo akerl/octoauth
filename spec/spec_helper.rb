@@ -11,15 +11,3 @@ require 'octoauth'
 
 require 'webmock/rspec'
 WebMock.disable_net_connect!(allow_localhost: true)
-
-module UserInput
-##
-# Mask prints from UserInput
-  class Prompt
-    def print(*args)
-    end
-
-    def puts(*args)
-    end
-  end
-end

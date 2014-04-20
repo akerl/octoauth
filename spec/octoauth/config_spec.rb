@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'fileutils'
 
 describe Octoauth do
   describe Octoauth::ConfigFile do
@@ -36,6 +37,7 @@ describe Octoauth do
 
     describe '#write' do
       it 'saves a config to disk' do
+        FileUtils.rm_f 'spec/examples/tmp.yml'
         random = rand(36**30).to_s(30)
         config = Octoauth::ConfigFile.new(
           note: 'bar',
