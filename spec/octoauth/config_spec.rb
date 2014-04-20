@@ -33,5 +33,22 @@ describe Octoauth do
         end
       end
     end
+
+    describe '#write' do
+      it 'saves a config to disk' do
+        random = rand(36**30).to_s(30)
+        config = Octoauth::ConfigFile.new(
+          note: 'bar',
+          file: 'spec/examples/tmp.yml'
+        )
+        config.token = random
+        config.write
+        new_config = Octoauth::ConfigFile.new(
+          note: 'bar',
+          file: 'spec/examples/tmp.yml'
+        )
+        expect(new_config.token).to eql random
+      end
+    end
   end
 end
