@@ -52,14 +52,7 @@ describe Octoauth do
         end
         it 'handles users with 2 factor auth enabled' do
           stub_request(:post, 'https://user:pw@api.github.com/authorizations')
-            .with(
-              body: "{\"note\":\"foo\"}",
-              headers: {
-                'Accept' => 'application/vnd.github.v3+json',
-                'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-                'User-Agent' => 'Octokit Ruby Gem 3.1.0'
-              }
-            )
+            .with(body: "{\"note\":\"foo\"}")
             .to_return(
               status: 401,
               headers: { 'X-GitHub-OTP' => 'required; app' }
