@@ -40,15 +40,17 @@ module Octoauth
       params[:password] ||= PROMPTS[:password].ask
       params[:twofactor] ||= PROMPTS[:twofactor].ask if params[:needs2fa]
       params[:scopes] ||= DEFAULT_SCOPES
+      if params[:twofactor]
+        params[:headers] = { 'X-GitHub-OTP' => params[:twofactor] }
+      end
       authenticate! params
     end
 
     def authenticate!(params = {})
       client = Octokit::Client.new params.subset(:login, :password)
-      if params[:twofactor]
-        params[:headers] = { 'X-GitHub-OTP' => params[:twofactor] }
-      end
-      client.create_authorization(params.subset(:note, :scopes, :headers)).token
+      client.create_authorization(
+        params.subset(:note, :scopes, :headers)
+      ).token
     rescue Octokit::OneTimePasswordRequired
       load_token params.merge(needs2fa: true)
     rescue Octokit::UnprocessableEntity

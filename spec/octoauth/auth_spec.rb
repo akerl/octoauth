@@ -32,7 +32,7 @@ describe Octoauth do
       context 'if there is a note conflict' do
         it 'returns the existing token' do
           stub_request(:post, 'https://user:pw@api.github.com/authorizations')
-            .with(body: "{\"note\":\"existing\"}")
+            .with(body: "{\"note\":\"existing\",\"scopes\":[]}")
             .to_return(status: 422)
           stub_request(:get, 'https://user:pw@api.github.com/authorizations')
             .to_return(
@@ -53,7 +53,7 @@ describe Octoauth do
       context 'if the file does not exist' do
         it 'requests user input to create token' do
           stub_request(:post, 'https://user:pw@api.github.com/authorizations')
-            .with(body: "{\"note\":\"foo\"}")
+            .with(body: "{\"note\":\"foo\",\"scopes\":[]}")
             .to_return(
               status: 200,
               body: AuthShim.new('foo', 'qwertyqwertyqwertyqwerty')
@@ -67,14 +67,14 @@ describe Octoauth do
         end
         it 'handles users with 2 factor auth enabled' do
           stub_request(:post, 'https://user:pw@api.github.com/authorizations')
-            .with(body: "{\"note\":\"foo\"}")
+            .with(body: "{\"note\":\"foo\",\"scopes\":[]}")
             .to_return(
               status: 401,
               headers: { 'X-GitHub-OTP' => 'required; app' }
             )
           stub_request(:post, 'https://user:pw@api.github.com/authorizations')
             .with(
-              body: "{\"note\":\"foo\"}",
+              body: "{\"note\":\"foo\",\"scopes\":[]}",
               headers: { 'X-GitHub-OTP' => '1234' }
             )
             .to_return(
@@ -93,7 +93,7 @@ describe Octoauth do
         random = rand(36**30).to_s(30)
         FileUtils.rm_f 'spec/examples/tmp.yml'
         stub_request(:post, 'https://user:pw@api.github.com/authorizations')
-          .with(body: "{\"note\":\"write_test\"}")
+          .with(body: "{\"note\":\"write_test\",\"scopes\":[]}")
           .to_return(
             status: 200,
             body: AuthShim.new('foo', random)
