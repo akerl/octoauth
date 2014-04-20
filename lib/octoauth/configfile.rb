@@ -11,19 +11,19 @@ module Octoauth
   # Configuration object
   class ConfigFile
     attr_reader :file
-    attr_accessor :creds
+    attr_accessor :token
 
     ##
     # Create new Config object, either ephemerally or from a file
     def initialize(params = {})
       @file = params[:file] == :default ? DEFAULT_FILE : params[:file]
       @note = params[:note] || fail(ArgumentError, 'A note must be provided')
-      @creds = parse
+      @token = parse
     end
 
     def write
       new = get
-      new[@note] = @creds
+      new[@note] = @token
       File.open(@file, 'w') { |fh| fh.write new.to_yaml }
     end
 

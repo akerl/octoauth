@@ -17,23 +17,23 @@ module Octoauth
   ##
   # Authentication object
   class Auth
-    attr_reader :creds
+    attr_reader :token
 
     def initialize(params = {})
       @config = ConfigFile.new params.subset(:file, :note)
-      @creds = load_creds params
+      @token = load_token params
     end
 
     def save
       fail 'No token to save' unless @token
-      @config.creds = @creds
+      @config.token = @token
       @config.write
     end
 
     private
 
-    def load_creds(params = {})
-      return @config.creds if @config.creds
+    def load_token(params = {})
+      return @config.token if @config.token
       params[:login] ||= PROMPTS[:login].ask
       params[:password] ||= PROMPTS[:password].ask
       params[:twofactor] = PROMPTS[:twofactor].ask if params[:twofactor] == true
@@ -47,7 +47,7 @@ module Octoauth
       if params[:twofactor]
         params[:headers] = { 'X-GitHub-OTP' => params[:twofactor] }
       end
-      client.create_authorization params.subset(:note, :scope, :headers).token
+      client.create_authorization(params.subset(:note, :scope, :headers)).token
     rescue Octokit::OneTimePasswordRequired
       load_token params.merge(twofactor: true)
     end
