@@ -11,7 +11,7 @@ module Octoauth
   # Configuration object
   class Config
     attr_reader :file
-    attr_accessor :token
+    attr_accessor :creds
 
     ##
     # Create new Config object, either ephemerally or from a file
@@ -21,6 +21,14 @@ module Octoauth
       @creds = parse
     end
 
+    def write
+      new = get
+      new[@note] = @creds
+      File.open(@file, 'w') { |fh| fh.write new.to_yaml }
+    end
+
+    private
+
     def get
       return {} unless @file
       YAML.load File.read(@file)
@@ -28,12 +36,6 @@ module Octoauth
 
     def parse
       get[@note]
-    end
-
-    def write
-      new = get
-      new[@note] = @token
-      File.open(@file, 'w') { |fh| fh.write new.to_yaml }
     end
   end
 end
