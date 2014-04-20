@@ -14,8 +14,11 @@ describe Octoauth do
       it 'requires a note' do
         expect { Octoauth::ConfigFile.new }.to raise_error ArgumentError
       end
-      it 'loads a config' do
-
+      context 'when given a file path' do
+        it 'loads that config' do
+          config = Octoauth::ConfigFile.new(note: 'foo', file: 'spec/examples/conf_a.yml')
+          expect(config.token).to eql 'bcdebcdebcdebcdebcdebcdebcde'
+        end
       end
     end
   end
