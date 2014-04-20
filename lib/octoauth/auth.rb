@@ -38,10 +38,9 @@ module Octoauth
       return @config.token if @config.token
       params[:login] ||= PROMPTS[:login].ask
       params[:password] ||= PROMPTS[:password].ask
-      params[:twofactor] ||= PROMPTS[:twofactor].ask if params[:twofactor]
+      params[:twofactor] ||= PROMPTS[:twofactor].ask if params[:needs2fa]
       params[:scopes] ||= DEFAULT_SCOPE
-      token = authenticate! params
-      { login: params[:login], password: token }
+      authenticate! params
     end
 
     def authenticate!(params = {})
@@ -51,7 +50,9 @@ module Octoauth
       end
       client.create_authorization(params.subset(:note, :scope, :headers)).token
     rescue Octokit::OneTimePasswordRequired
-      load_token params.merge(twofactor: true)
+      load_token params.merge(needs2fa: true)
+    rescue Octokit::UnprocessableEntity
+      client.authorizations.find { |x| x[:note] == params[:note] }.token
     end
   end
 end
