@@ -51,6 +51,18 @@ describe Octoauth do
         )
         expect(new_config.token).to eql random
       end
+      it 'makes the config file owner-readable' do
+        FileUtils.rm_f 'spec/examples/priv_test.yml'
+        random = rand(36**30).to_s(30)
+        config = Octoauth::ConfigFile.new(
+          note: 'bar',
+          file: 'spec/examples/priv_test.yml'
+        )
+        config.token = random
+        config.write
+        privs = File.stat('spec/examples/priv_test.yml').mode.to_s(8)
+        expect(privs).to eql '100400'
+      end
     end
   end
 end

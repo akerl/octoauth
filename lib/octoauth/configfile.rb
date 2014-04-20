@@ -24,7 +24,7 @@ module Octoauth
     def write
       new = get
       new[@note] = @token
-      File.open(@file, 'w') { |fh| fh.write new.to_yaml }
+      File.open(@file, 'w', 0400) { |fh| fh.write new.to_yaml }
     end
 
     private
