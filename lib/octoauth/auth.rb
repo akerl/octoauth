@@ -1,6 +1,8 @@
 require 'octokit'
 require 'userinput'
 
+##
+# Define Auth object and related info for Octoauth
 module Octoauth
   ##
   # Default OAuth scope for tokens
@@ -36,7 +38,7 @@ module Octoauth
       return @config.token if @config.token
       params[:login] ||= PROMPTS[:login].ask
       params[:password] ||= PROMPTS[:password].ask
-      params[:twofactor] = PROMPTS[:twofactor].ask if params[:twofactor] == true
+      params[:twofactor] ||= PROMPTS[:twofactor].ask if params[:twofactor]
       params[:scopes] ||= DEFAULT_SCOPE
       token = authenticate! params
       { login: params[:login], password: token }
