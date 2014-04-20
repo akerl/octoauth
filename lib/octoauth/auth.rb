@@ -5,8 +5,8 @@ require 'userinput'
 # Define Auth object and related info for Octoauth
 module Octoauth
   ##
-  # Default OAuth scope for tokens
-  DEFAULT_SCOPE = []
+  # Default OAuth scopes for tokens
+  DEFAULT_SCOPES = []
 
   ##
   # Prompt information for collecting user info
@@ -39,7 +39,7 @@ module Octoauth
       params[:login] ||= PROMPTS[:login].ask
       params[:password] ||= PROMPTS[:password].ask
       params[:twofactor] ||= PROMPTS[:twofactor].ask if params[:needs2fa]
-      params[:scopes] ||= DEFAULT_SCOPE
+      params[:scopes] ||= DEFAULT_SCOPES
       authenticate! params
     end
 
@@ -48,7 +48,7 @@ module Octoauth
       if params[:twofactor]
         params[:headers] = { 'X-GitHub-OTP' => params[:twofactor] }
       end
-      client.create_authorization(params.subset(:note, :scope, :headers)).token
+      client.create_authorization(params.subset(:note, :scopes, :headers)).token
     rescue Octokit::OneTimePasswordRequired
       load_token params.merge(needs2fa: true)
     rescue Octokit::UnprocessableEntity
