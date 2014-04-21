@@ -22,7 +22,7 @@ module Octoauth
     attr_reader :token
 
     def initialize(params = {})
-      params[:config_note] = params[:note].dup
+      params[:config_note] = "#{params[:note]}"
       if params.include? :api_endpoint
         params[:config_note] << "--#{params[:api_endpoint]}"
       end
