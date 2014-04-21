@@ -32,6 +32,7 @@ module Octoauth
 
     def save
       fail 'No token to save' unless @token
+      fail 'No file given for config' unless @config.file
       @config.token = @token
       @config.write
     end
