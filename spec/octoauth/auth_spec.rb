@@ -86,6 +86,36 @@ describe Octoauth do
           expect(auth.token).to eql 'qwertyqwertyqwertyqwerty'
         end
       end
+      it 'supports alternate endpoints' do
+        stub_request(:post, 'https://user:pw@sekrit.com/api/v3/authorizations')
+          .with(body: "{\"note\":\"foo\",\"scopes\":[]}")
+          .to_return(
+            status: 200,
+            body: AuthShim.new('foo', 'qwertyqwertyqwertyqwerty')
+          )
+        auth = Octoauth::Auth.new(
+          note: 'foo',
+          login: 'user',
+          password: 'pw',
+          api_endpoint: 'https://sekrit.com/api/v3/'
+        )
+        expect(auth.token).to eql 'qwertyqwertyqwertyqwerty'
+      end
+      it 'supports requesting scopes' do
+        stub_request(:post, 'https://user:pw@api.github.com/authorizations')
+          .with(body: '{"note":"foo","scopes":["gist","delete_repo"]}')
+          .to_return(
+            status: 200,
+            body: AuthShim.new('foo', 'qwertyqwertyqwertyqwerty')
+          )
+        auth = Octoauth::Auth.new(
+          note: 'foo',
+          login: 'user',
+          password: 'pw',
+          scopes: %w(gist delete_repo)
+        )
+        expect(auth.token).to eql 'qwertyqwertyqwertyqwerty'
+      end
     end
 
     describe '#save' do

@@ -22,7 +22,11 @@ module Octoauth
     attr_reader :token
 
     def initialize(params = {})
-      @config = ConfigFile.new params.subset(:file, :note)
+      params[:config_note] = params[:note].dup
+      if params.include? :api_endpoint
+        params[:config_note] << "--#{params[:api_endpoint]}"
+      end
+      @config = ConfigFile.new file: params[:file], note: params[:config_note]
       @token = load_token params
     end
 
@@ -47,7 +51,9 @@ module Octoauth
     end
 
     def authenticate!(params = {})
-      client = Octokit::Client.new params.subset(:login, :password)
+      client = Octokit::Client.new(
+        params.subset(:login, :password, :api_endpoint)
+      )
       client.create_authorization(
         params.subset(:note, :scopes, :headers)
       ).token
