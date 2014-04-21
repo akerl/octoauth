@@ -61,7 +61,7 @@ describe Octoauth do
         config.token = random
         config.write
         privs = File.stat('spec/examples/priv_test.yml').mode.to_s(8)
-        expect(privs).to eql '100400'
+        expect(privs).to eql '100600'
       end
     end
   end
