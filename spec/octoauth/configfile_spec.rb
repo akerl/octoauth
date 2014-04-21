@@ -23,7 +23,7 @@ describe Octoauth do
       context 'when give :default' do
         it 'uses the default file' do
           config = Octoauth::ConfigFile.new(note: 'foo', file: :default)
-          expect(config.file).to eql Octoauth::DEFAULT_FILE
+          expect(config.file).to eql File.expand_path(Octoauth::DEFAULT_FILE)
         end
       end
       context 'when given no file' do
