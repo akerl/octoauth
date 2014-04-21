@@ -41,6 +41,14 @@ The above examples get us the basic scope, which means some read-only public acc
 auth = Octoauth.new note: 'my_app', scopes: ['gist', 'delete_repo']
 ```
 
+If you're trying to use this with a GitHub Enterprise deployment, you can specify an alternate API endpoint:
+
+```
+auth = Octoauth.new note: 'enterprise_app', api_endpoint: 'https://sekrit.codez.com/api/v3/'
+```
+
+If an alternate endpoint is provided, that string is included as part of the saved config, so you can generate a token for GitHub and multiple alternate endpoints with the same note in the same config file.
+
 ## Installation
 
     gem install octoauth
