@@ -23,7 +23,7 @@ module Octoauth
 
     def initialize(params = {})
       params[:config_note] = "#{params[:note]}"
-      if params.include? :api_endpoint
+      if params[:api_endpoint]
         params[:config_note] << "--#{params[:api_endpoint]}"
       end
       @config = ConfigFile.new file: params[:file], note: params[:config_note]
