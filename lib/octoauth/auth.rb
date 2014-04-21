@@ -61,7 +61,12 @@ module Octoauth
     rescue Octokit::OneTimePasswordRequired
       load_token params.merge(needs2fa: true)
     rescue Octokit::UnprocessableEntity
-      client.authorizations.find { |x| x[:note] == params[:note] }.token
+      check_existing_token client, params
+    end
+
+    def check_existing_token(client, params = {})
+      client.authorizations(params.subset(:headers))
+        .find { |x| x[:note] == params[:note] }.token
     end
   end
 end
