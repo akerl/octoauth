@@ -6,13 +6,13 @@ require 'fileutils'
 AuthShim = Struct.new(:note, :token)
 
 module UserInput
-##
-# Mask prints from UserInput
+  ##
+  # Mask prints from UserInput
   class Prompt
-    def print(*args)
+    def print(*)
     end
 
-    def puts(*args)
+    def puts(*)
     end
   end
 end
