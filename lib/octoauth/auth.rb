@@ -28,6 +28,7 @@ module Octoauth
       end
       @config = ConfigFile.new file: params[:file], note: params[:config_note]
       @token = load_token params
+      save if params[:autosave]
     end
 
     def save

@@ -116,6 +116,28 @@ describe Octoauth do
         )
         expect(auth.token).to eql 'qwertyqwertyqwertyqwerty'
       end
+      it 'supports autosaving the config file' do
+        random = rand(36**30).to_s(30)
+        stub_request(:post, 'https://user:pw@api.github.com/authorizations')
+          .with(body: "{\"note\":\"autosave_test\",\"scopes\":[]}")
+          .to_return(
+            status: 200,
+            body: AuthShim.new('foo', random)
+          )
+        FileUtils.rm_f 'spec/examples/autosave.yml'
+        Octoauth::Auth.new(
+          note: 'autosave_test',
+          file: 'spec/examples/autosave.yml',
+          login: 'user',
+          password: 'pw',
+          autosave: true
+        )
+        new_auth = Octoauth::Auth.new(
+          note: 'autosave_test',
+          file: 'spec/examples/autosave.yml'
+        )
+        expect(new_auth.token).to eql random
+      end
     end
 
     describe '#save' do
