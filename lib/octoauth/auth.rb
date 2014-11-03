@@ -40,7 +40,7 @@ module Octoauth
 
     private
 
-    def load_token(params = {})
+    def load_token(params = {}) # rubocop:disable Metrics/AbcSize
       return @config.token if @config.token
       params[:login] ||= PROMPTS[:login].ask
       params[:password] ||= PROMPTS[:password].ask
