@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.files       = `git ls-files`.split
   s.test_files  = `git ls-files spec/*`.split
 
-  s.add_dependency 'octokit', '~> 3.6.0'
+  s.add_dependency 'octokit', '~> 3.7.0'
   s.add_dependency 'userinput', '~> 0.0.2'
 
   s.add_development_dependency 'rubocop', '~> 0.27.0'
