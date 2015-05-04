@@ -1,4 +1,6 @@
-# 1.0.2 / Unreleased
+# 1.0.2 / 2015-05-03
+
+* [ENHANCEMENT] Fix option/param handling to be cleaner
 
 # 1.0.1 / 2015-02-20
 

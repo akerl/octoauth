@@ -19,59 +19,68 @@ module Octoauth
   ##
   # Authentication object
   class Auth
-    attr_reader :token
-
     def initialize(params = {})
-      params[:config_note] = "#{params[:note]}"
-      if params[:api_endpoint]
-        params[:config_note] << "--#{params[:api_endpoint]}"
-      end
-      @config = ConfigFile.new file: params[:file], note: params[:config_note]
-      @token = load_token params
-      save if params[:autosave]
+      parse_params!(params)
+      @config = ConfigFile.new file: @options[:file], note: config_note
+      save if @options[:autosave]
     end
 
     def save
-      fail 'No token to save' unless @token
+      fail 'No token to save' unless token
       fail 'No file given for config' unless @config.file
       @config.token = @token
       @config.write
     end
 
+    def token
+      @token ||= load_token
+    end
+
     private
 
-    def prompt!(params)
-      params[:login] ||= PROMPTS[:login].ask
-      params[:password] ||= PROMPTS[:password].ask
-      params[:twofactor] ||= PROMPTS[:twofactor].ask if params[:needs2fa]
-      params[:scopes] ||= DEFAULT_SCOPES
+    def parse_params!(params)
+      @options = params.subset(
+        :file, :note, :autosave, :scopes,
+        :login, :password, :twofactor, :api_endpoint
+      )
     end
 
-    def load_token(params = {})
+    def config_note
+      return @options[:note] unless @options[:api_endpoint]
+      "#{@options[:note]}--#{@options[:api_endpoint]}"
+    end
+
+    def prompt!(needs2fa = false)
+      @options[:login] ||= PROMPTS[:login].ask
+      @options[:password] ||= PROMPTS[:password].ask
+      @options[:scopes] ||= DEFAULT_SCOPES
+      return unless needs2fa
+      @options[:twofactor] ||= PROMPTS[:twofactor].ask
+      @options[:headers] = { 'X-GitHub-OTP' => @options[:twofactor] }
+    end
+
+    def load_token(needs2fa = false)
       return @config.token if @config.token
-      prompt! params
-      if params[:twofactor]
-        params[:headers] = { 'X-GitHub-OTP' => params[:twofactor] }
-      end
-      authenticate! params
+      prompt!(needs2fa)
+      authenticate
     end
 
-    def authenticate!(params = {})
+    def authenticate
       client = Octokit::Client.new(
-        params.subset(:login, :password, :api_endpoint)
+        @options.subset(:login, :password, :api_endpoint)
       )
       client.create_authorization(
-        params.subset(:note, :scopes, :headers)
+        @options.subset(:note, :scopes, :headers)
       ).token
     rescue Octokit::OneTimePasswordRequired
-      load_token params.merge(needs2fa: true)
+      load_token(true)
     rescue Octokit::UnprocessableEntity
-      check_existing_token client, params
+      check_existing_token client
     end
 
-    def check_existing_token(client, params = {})
-      client.authorizations(params.subset(:headers))
-        .find { |x| x[:note] == params[:note] }.token
+    def check_existing_token(client)
+      client.authorizations(@options.subset(:headers))
+        .find { |x| x[:note] == @options[:note] }.token
     end
   end
 end
