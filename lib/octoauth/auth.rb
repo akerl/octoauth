@@ -40,12 +40,16 @@ module Octoauth
 
     private
 
-    def load_token(params = {}) # rubocop:disable Metrics/AbcSize
-      return @config.token if @config.token
+    def prompt!(params)
       params[:login] ||= PROMPTS[:login].ask
       params[:password] ||= PROMPTS[:password].ask
       params[:twofactor] ||= PROMPTS[:twofactor].ask if params[:needs2fa]
       params[:scopes] ||= DEFAULT_SCOPES
+    end
+
+    def load_token(params = {})
+      return @config.token if @config.token
+      prompt! params
       if params[:twofactor]
         params[:headers] = { 'X-GitHub-OTP' => params[:twofactor] }
       end
