@@ -35,6 +35,12 @@ puts "The other token is #{other_auth.token}"
 other_auth.save
 ```
 
+Multiple files can be specified, and it will try them in order looking for a valid token. If this fails, it will use the first file listed for any future saving of tokens:
+
+```
+auth = Octoauth.new note: 'my_app', files: ['./.octoauth.yml', '/etc/octoauth', :default]
+```
+
 The above examples get us the basic scope, which means some read-only public access. For other scopes, specify them when creating the token:
 
 ```

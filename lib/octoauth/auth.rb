@@ -21,15 +21,14 @@ module Octoauth
   class Auth
     def initialize(params = {})
       parse_params!(params)
-      @config = ConfigFile.new file: @options[:file], note: config_note
       save if @options[:autosave]
     end
 
     def save
       fail 'No token to save' unless token
-      fail 'No file given for config' unless @config.file
-      @config.token = @token
-      @config.write
+      fail 'No file given for config' unless config.file
+      config.token = token
+      config.write
     end
 
     def token
@@ -38,9 +37,21 @@ module Octoauth
 
     private
 
+    def config
+      return @config if @config
+      configs = config_files.map do |file|
+        ConfigFile.new file: file, note: config_note
+      end
+      @config = configs.find(&:token) || configs.first
+    end
+
+    def config_files
+      @options[:files] ||= [@options[:file]]
+    end
+
     def parse_params!(params)
       @options = params.subset(
-        :file, :note, :autosave, :scopes,
+        :file, :files, :note, :autosave, :scopes,
         :login, :password, :twofactor, :api_endpoint
       )
     end
@@ -60,7 +71,7 @@ module Octoauth
     end
 
     def load_token(needs2fa = false)
-      return @config.token if @config.token
+      return config.token if config.token
       prompt!(needs2fa)
       authenticate
     end

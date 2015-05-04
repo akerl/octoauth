@@ -1,3 +1,7 @@
+# 1.1.0 / 2015-05-03
+
+* [FEATURE] Support hierarchy of file paths for configs
+
 # 1.0.2 / 2015-05-03
 
 * [ENHANCEMENT] Fix option/param handling to be cleaner
