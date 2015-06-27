@@ -1,3 +1,7 @@
+# 1.2.0 / 2015-06-27
+
+* [ENHANCEMENT] Update octokit to ~> 4.0.0
+
 # 1.1.0 / 2015-05-03
 
 * [FEATURE] Support hierarchy of file paths for configs
