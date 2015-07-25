@@ -61,10 +61,21 @@ module Octoauth
       "#{@options[:note]}--#{@options[:api_endpoint]}"
     end
 
+    def fingerprint
+      @fingerprint ||= "#{config_note}/#{hostname}"
+    end
+
+    def hostname
+      return @hostname if @hostname
+      res = `hostname`.split.first
+      @hostname = $?.exitstatus == 0 ? res : 'NULL'
+    end
+
     def prompt!(needs2fa = false)
       @options[:login] ||= PROMPTS[:login].ask
       @options[:password] ||= PROMPTS[:password].ask
       @options[:scopes] ||= DEFAULT_SCOPES
+      @options[:fingerprint] = fingerprint
       return unless needs2fa
       @options[:twofactor] ||= PROMPTS[:twofactor].ask
       @options[:headers] = { 'X-GitHub-OTP' => @options[:twofactor] }
@@ -81,7 +92,7 @@ module Octoauth
         @options.subset(:login, :password, :api_endpoint)
       )
       client.create_authorization(
-        @options.subset(:note, :scopes, :headers)
+        @options.subset(:note, :scopes, :headers, :fingerprint)
       ).token
     rescue Octokit::OneTimePasswordRequired
       load_token(true)
