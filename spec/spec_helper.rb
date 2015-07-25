@@ -9,15 +9,15 @@ end
 require 'rspec'
 require 'octoauth'
 
-require 'webmock/rspec'
-WebMock.disable_net_connect!(allow_localhost: true)
-
-module WebMock
-  ##
-  # Patch WebMock to allow Structs as response bodies
-  class Response
-    def assert_valid_body!
-      true
+require 'vcr'
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/fixtures/cassettes'
+  c.hook_into :webmock
+  c.before_record do |i|
+    i.request.headers.delete 'Authorization'
+    %w(Etag X-Github-Request-Id X-Served-By).each do |header|
+      i.response.headers.delete header
     end
   end
 end
+
