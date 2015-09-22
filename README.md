@@ -3,9 +3,9 @@ octoauth
 
 [![Gem Version](https://img.shields.io/gem/v/octoauth.svg)](https://rubygems.org/gems/octoauth)
 [![Dependency Status](https://img.shields.io/gemnasium/akerl/octoauth.svg)](https://gemnasium.com/akerl/octoauth)
-[![Code Climate](https://img.shields.io/codeclimate/github/akerl/octoauth.svg)](https://codeclimate.com/github/akerl/octoauth)
-[![Coverage Status](https://img.shields.io/coveralls/akerl/octoauth.svg)](https://coveralls.io/r/akerl/octoauth)
-[![Build Status](https://img.shields.io/travis/akerl/octoauth.svg)](https://travis-ci.org/akerl/octoauth)
+[![Build Status](https://img.shields.io/circleci/project/akerl/octoauth.svg)](https://circleci.com/gh/akerl/octoauth)
+[![Coverage Status](https://img.shields.io/codecov/c/github/akerl/octoauth.svg)](https://codecov.io/github/akerl/octoauth)
+[![Code Quality](https://img.shields.io/codacy/648fd8ebe3374dd4acc5449b8922f2e0.svg)](https://www.codacy.com/app/akerl/octoauth)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-green.svg)](https://tldrlegal.com/license/mit-license)
 
 Authentication wrapper for GitHub's API
