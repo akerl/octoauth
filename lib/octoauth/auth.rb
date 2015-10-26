@@ -84,10 +84,10 @@ module Octoauth
     def load_token(needs2fa = false)
       return config.token if config.token
       prompt!(needs2fa)
-      authenticate
+      authenticate(needs2fa)
     end
 
-    def authenticate
+    def authenticate(using2fa)
       client = Octokit::Client.new(
         @options.subset(:login, :password, :api_endpoint)
       )
@@ -96,13 +96,15 @@ module Octoauth
         { note: note }.merge(@options.subset(:scopes, :headers, :fingerprint))
       ).token
     rescue Octokit::OneTimePasswordRequired
+      raise('Invalid 2fa code') if using2fa
       load_token(true)
     end
 
     def delete_existing_token(client)
-      client.authorizations(@options.subset(:headers))
+      headers = @options.subset(:headers)
+      client.authorizations(headers)
         .select { |x| x[:note] == note }
-        .map { |x| client.delete_authorization(x[:id]) }
+        .map { |x| client.delete_authorization(x[:id], headers) }
     end
   end
 end

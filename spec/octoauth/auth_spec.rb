@@ -5,22 +5,11 @@ require 'fileutils'
 # Grab creds for setting up VCR
 LOGIN = ENV['OCTOAUTH_LOGIN'] || 'user'
 PASSWORD = ENV['OCTOAUTH_PASSWORD'] || 'pw'
+TWOFACTOR = ENV['OCTOAUTH_TFA'] || '123456'
 
 ##
 # Shim object for mocking auth resources
 AuthShim = Struct.new(:note, :token)
-
-module UserInput
-  ##
-  # Mask prints from UserInput
-  class Prompt
-    def print(*)
-    end
-
-    def puts(*)
-    end
-  end
-end
 
 describe Octoauth do
   describe Octoauth::Auth do
@@ -67,7 +56,7 @@ describe Octoauth do
               note: 'two_factor_token',
               login: LOGIN,
               password: PASSWORD,
-              twofactor: '123456'
+              twofactor: TWOFACTOR
             )
             expect(auth.token).to eql '2fa_required_token'
           end
