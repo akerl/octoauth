@@ -1,0 +1,193 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://<USER>:<PASSWORD>@api.github.com/authorizations
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/vnd.github.v3+json
+      User-Agent:
+      - Octokit Ruby Gem 4.1.1
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Mon, 26 Oct 2015 02:45:37 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4984'
+      X-Ratelimit-Reset:
+      - '1445829724'
+      Cache-Control:
+      - private, max-age=60, s-maxage=60
+      Vary:
+      - Accept, Authorization, Cookie, X-GitHub-OTP
+      - Accept-Encoding
+      X-Github-Media-Type:
+      - github.v3; format=json
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - deny
+      Content-Security-Policy:
+      - default-src 'none'
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+      Access-Control-Allow-Origin:
+      - "*"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"id":23673434,"url":"https://api.github.com/authorizations/23673434","app":{"name":"requesting_scopes/bean","url":"https://developer.github.com/v3/oauth_authorizations/","client_id":"00000000000000000000"},"token":"","hashed_token":"7873c3c9471702e93416139dec20bc4c6c35e93e91776bbe284e3c08e49020f0","token_last_eight":"07112afc","note":"requesting_scopes/bean","note_url":null,"created_at":"2015-10-26T02:22:04Z","updated_at":"2015-10-26T02:22:04Z","scopes":["gist","delete_repo"],"fingerprint":null},{"id":23673435,"url":"https://api.github.com/authorizations/23673435","app":{"name":"autosave_test/bean","url":"https://developer.github.com/v3/oauth_authorizations/","client_id":"00000000000000000000"},"token":"","hashed_token":"d04e11d46f3358c2ccc9ff61a10af5e4bc9de0c468404f6821e6ca3342c6477f","token_last_eight":"4c625306","note":"autosave_test/bean","note_url":null,"created_at":"2015-10-26T02:22:04Z","updated_at":"2015-10-26T02:22:04Z","scopes":[],"fingerprint":null},{"id":23673463,"url":"https://api.github.com/authorizations/23673463","app":{"name":"existing_token/bean","url":"https://developer.github.com/v3/oauth_authorizations/","client_id":"00000000000000000000"},"token":"","hashed_token":"81058c676b8a2de95487b5ad9ed1090f74efa8a581ba69487f274c4552b4716a","token_last_eight":"f9a2fcda","note":"existing_token/bean","note_url":null,"created_at":"2015-10-26T02:23:05Z","updated_at":"2015-10-26T02:23:05Z","scopes":[],"fingerprint":null},{"id":23673464,"url":"https://api.github.com/authorizations/23673464","app":{"name":"create_token/bean","url":"https://developer.github.com/v3/oauth_authorizations/","client_id":"00000000000000000000"},"token":"","hashed_token":"5296cd63dbc0add3fb40fd96e5c6bf2346464e15a6400183930c6765d8894899","token_last_eight":"f1c8d660","note":"create_token/bean","note_url":null,"created_at":"2015-10-26T02:23:06Z","updated_at":"2015-10-26T02:23:06Z","scopes":[],"fingerprint":null},{"id":23673465,"url":"https://api.github.com/authorizations/23673465","app":{"name":"two_factor_token/bean","url":"https://developer.github.com/v3/oauth_authorizations/","client_id":"00000000000000000000"},"token":"","hashed_token":"cf1ef3274bbd1cb0f25cf3c0ae62bba97fb19d6d1278da37c87b60bbbbfd58e9","token_last_eight":"6f534ee7","note":"two_factor_token/bean","note_url":null,"created_at":"2015-10-26T02:23:06Z","updated_at":"2015-10-26T02:23:06Z","scopes":[],"fingerprint":null},{"id":23673471,"url":"https://api.github.com/authorizations/23673471","app":{"name":"write_first_test/bean","url":"https://developer.github.com/v3/oauth_authorizations/","client_id":"00000000000000000000"},"token":"","hashed_token":"e1ffd7c1465879b3c776c7be6fe7777f64f2dddb6d09da06f264e563e7c49fa7","token_last_eight":"49a5dcbd","note":"write_first_test/bean","note_url":null,"created_at":"2015-10-26T02:23:24Z","updated_at":"2015-10-26T02:23:24Z","scopes":[],"fingerprint":null}]'
+    http_version: 
+  recorded_at: Mon, 26 Oct 2015 02:45:38 GMT
+- request:
+    method: delete
+    uri: https://<USER>:<PASSWORD>@api.github.com/authorizations/23673434
+    body:
+      encoding: UTF-8
+      string: "{}"
+    headers:
+      Accept:
+      - application/vnd.github.v3+json
+      User-Agent:
+      - Octokit Ruby Gem 4.1.1
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 204
+      message: No Content
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Mon, 26 Oct 2015 02:45:38 GMT
+      Status:
+      - 204 No Content
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4983'
+      X-Ratelimit-Reset:
+      - '1445829724'
+      X-Github-Media-Type:
+      - github.v3; format=json
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - deny
+      Content-Security-Policy:
+      - default-src 'none'
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+      Access-Control-Allow-Origin:
+      - "*"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 26 Oct 2015 02:45:38 GMT
+- request:
+    method: post
+    uri: https://<USER>:<PASSWORD>@api.github.com/authorizations
+    body:
+      encoding: UTF-8
+      string: '{"note":"requesting_scopes/bean","scopes":["gist","delete_repo"]}'
+    headers:
+      Accept:
+      - application/vnd.github.v3+json
+      User-Agent:
+      - Octokit Ruby Gem 4.1.1
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Mon, 26 Oct 2015 02:45:38 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '541'
+      Status:
+      - 201 Created
+      X-Ratelimit-Limit:
+      - '5000'
+      X-Ratelimit-Remaining:
+      - '4982'
+      X-Ratelimit-Reset:
+      - '1445829724'
+      Cache-Control:
+      - private, max-age=60, s-maxage=60
+      Location:
+      - https://api.github.com/authorizations/23673992
+      Vary:
+      - Accept, Authorization, Cookie, X-GitHub-OTP
+      - Accept-Encoding
+      X-Github-Media-Type:
+      - github.v3; format=json
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - deny
+      Content-Security-Policy:
+      - default-src 'none'
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+      Access-Control-Allow-Origin:
+      - "*"
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Content-Type-Options:
+      - nosniff
+    body:
+      encoding: UTF-8
+      string: '{"id":23673992,"url":"https://api.github.com/authorizations/23673992","app":{"name":"requesting_scopes/bean","url":"https://developer.github.com/v3/oauth_authorizations/","client_id":"00000000000000000000"},"token":"token_with_scopes","hashed_token":"e41f77be9fe2994e5505437dce25574472b2d64f512305ccb25af6ec36cc9fc5","token_last_eight":"fc1217c4","note":"requesting_scopes/bean","note_url":null,"created_at":"2015-10-26T02:45:38Z","updated_at":"2015-10-26T02:45:38Z","scopes":["gist","delete_repo"],"fingerprint":null}'
+    http_version: 
+  recorded_at: Mon, 26 Oct 2015 02:45:38 GMT
+recorded_with: VCR 2.9.3

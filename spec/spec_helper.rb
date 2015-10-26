@@ -14,6 +14,8 @@ require 'vcr'
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/fixtures/cassettes'
   c.hook_into :webmock
+  c.filter_sensitive_data('<USER>') { ENV['OCTOAUTH_LOGIN'] || 'user' }
+  c.filter_sensitive_data('<PASSWORD>') { ENV['OCTOAUTH_PASSWORD'] || 'pw' }
   c.before_record do |i|
     i.request.headers.delete 'Authorization'
     %w(Etag X-Github-Request-Id X-Served-By).each do |header|

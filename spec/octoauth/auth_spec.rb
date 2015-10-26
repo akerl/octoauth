@@ -30,7 +30,7 @@ describe Octoauth do
           VCR.use_cassette('load_existing_token') do
             auth = Octoauth::Auth.new(
               note: 'existing_token',
-              file: 'spec/examples/existing_token'
+              file: 'spec/examples/existing_token.yml'
             )
             expect(auth.token).to eql 'an_existing_token'
           end
@@ -46,7 +46,7 @@ describe Octoauth do
                 password: PASSWORD
               ).token
             end
-            expect(tokens.first).to not_eql tokens.last
+            expect(tokens.first).not_to eql tokens.last
           end
         end
       end
@@ -67,7 +67,7 @@ describe Octoauth do
               note: 'two_factor_token',
               login: LOGIN,
               password: PASSWORD,
-              twofactor: 123456
+              twofactor: '123456'
             )
             expect(auth.token).to eql '2fa_required_token'
           end
@@ -81,7 +81,7 @@ describe Octoauth do
             password: PASSWORD,
             api_endpoint: 'https://example.org/api/v3/'
           )
-          expect(auth.token).to eql 'qwertyqwertyqwertyqwerty'
+          expect(auth.token).to eql 'created_token'
         end
       end
       it 'supports requesting scopes' do
@@ -147,7 +147,7 @@ describe Octoauth do
               auth = Octoauth::Auth.new(
                 note: 'write_first_test',
                 files: ['spec/examples/write_first_test.yml', 'bogus.yml'],
-                login: USER,
+                login: LOGIN,
                 password: PASSWORD
               )
               auth.save

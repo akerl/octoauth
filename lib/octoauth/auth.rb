@@ -87,7 +87,7 @@ module Octoauth
       authenticate
     end
 
-    def authenticate(retries = 1)
+    def authenticate
       client = Octokit::Client.new(
         @options.subset(:login, :password, :api_endpoint)
       )
