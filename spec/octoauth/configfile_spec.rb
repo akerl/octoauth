@@ -10,10 +10,10 @@ describe Octoauth do
       context 'when given a file path' do
         it 'loads that config' do
           config = Octoauth::ConfigFile.new(
-            note: 'foo',
-            file: 'spec/examples/conf_a.yml'
+            note: 'existing_token',
+            file: 'spec/examples/existing_token.yml'
           )
-          expect(config.token).to eql 'bcdebcdebcdebcdebcdebcdebcde'
+          expect(config.token).to eql 'an_existing_token'
         end
         it 'returns nil if the file does not exist' do
           config = Octoauth::ConfigFile.new(note: 'foo', file: 'wat')
@@ -27,7 +27,7 @@ describe Octoauth do
         end
       end
       context 'when given no file' do
-        it 'returns an empty hash' do
+        it 'returns nil data' do
           config = Octoauth::ConfigFile.new(note: 'foo')
           expect(config.token).to be_nil
           expect(config.file).to be_nil
@@ -37,17 +37,17 @@ describe Octoauth do
 
     describe '#write' do
       it 'saves a config to disk' do
-        FileUtils.rm_f 'spec/examples/tmp.yml'
+        FileUtils.rm_f 'spec/examples/config_save_test.yml'
         random = rand(36**30).to_s(30)
         config = Octoauth::ConfigFile.new(
           note: 'bar',
-          file: 'spec/examples/tmp.yml'
+          file: 'spec/examples/config_save_test.yml'
         )
         config.token = random
         config.write
         new_config = Octoauth::ConfigFile.new(
           note: 'bar',
-          file: 'spec/examples/tmp.yml'
+          file: 'spec/examples/config_save_test.yml'
         )
         expect(new_config.token).to eql random
       end

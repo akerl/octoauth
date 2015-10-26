@@ -1,5 +1,6 @@
 require 'octokit'
 require 'userinput'
+require 'English'
 
 ##
 # Define Auth object and related info for Octoauth
@@ -61,21 +62,20 @@ module Octoauth
       "#{@options[:note]}--#{@options[:api_endpoint]}"
     end
 
-    def fingerprint
-      @fingerprint ||= "#{config_note}/#{hostname}"
+    def note
+      @note ||= "#{@options[:note]}/#{hostname}"
     end
 
     def hostname
       return @hostname if @hostname
       res = `hostname`.split.first
-      @hostname = $?.exitstatus == 0 ? res : 'NULL'
+      @hostname = $CHILD_STATUS.exitstatus == 0 ? res : 'NULL'
     end
 
     def prompt!(needs2fa = false)
       @options[:login] ||= PROMPTS[:login].ask
       @options[:password] ||= PROMPTS[:password].ask
       @options[:scopes] ||= DEFAULT_SCOPES
-      @options[:fingerprint] = fingerprint
       return unless needs2fa
       @options[:twofactor] ||= PROMPTS[:twofactor].ask
       @options[:headers] = { 'X-GitHub-OTP' => @options[:twofactor] }
@@ -87,22 +87,22 @@ module Octoauth
       authenticate
     end
 
-    def authenticate
+    def authenticate(retries = 1)
       client = Octokit::Client.new(
         @options.subset(:login, :password, :api_endpoint)
       )
+      delete_existing_token(client)
       client.create_authorization(
-        @options.subset(:note, :scopes, :headers, :fingerprint)
+        { note: note }.merge(@options.subset(:scopes, :headers, :fingerprint))
       ).token
     rescue Octokit::OneTimePasswordRequired
       load_token(true)
-    rescue Octokit::UnprocessableEntity
-      check_existing_token client
     end
 
-    def check_existing_token(client)
+    def delete_existing_token(client)
       client.authorizations(@options.subset(:headers))
-        .find { |x| x[:note] == @options[:note] }.token
+        .select { |x| x[:note] == note }
+        .map { |x| client.delete_authorization(x[:id]) }
     end
   end
 end
