@@ -28,8 +28,8 @@ module Octoauth
     def save
       fail 'No token to save' unless token
       fail 'No file given for config' unless config.file
-      return unless @need_save
       config.token = token
+      return unless @token_changed
       config.write
     end
 
@@ -84,7 +84,7 @@ module Octoauth
 
     def load_token(needs2fa = false)
       return config.token if config.token
-      @needs_save = true
+      @token_changed = true
       prompt!(needs2fa)
       authenticate(needs2fa)
     end
