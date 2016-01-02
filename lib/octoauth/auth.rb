@@ -69,8 +69,9 @@ module Octoauth
 
     def hostname
       return @hostname if @hostname
-      res = `hostname`.split.first
-      @hostname = $CHILD_STATUS.exitstatus == 0 ? res : 'NULL'
+      @hostname ||= ENV['HOSTNAME'] || `hostname`.split.first || 'NULL'
+    rescue Errno::ENOENT
+      @hostname = 'NULL'
     end
 
     def prompt!(needs2fa = false)
