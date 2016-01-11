@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'octoauth'
-  s.version     = '1.4.3'
+  s.version     = '1.4.4'
   s.date        = Time.now.strftime("%Y-%m-%d")
 
   s.summary     = 'Auth token helper for GitHub API'
