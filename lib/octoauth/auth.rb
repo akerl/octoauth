@@ -7,7 +7,7 @@ require 'English'
 module Octoauth
   ##
   # Default OAuth scopes for tokens
-  DEFAULT_SCOPES = []
+  DEFAULT_SCOPES = [].freeze
 
   ##
   # Prompt information for collecting user info
@@ -15,7 +15,7 @@ module Octoauth
     login: UserInput.new(message: 'GitHub username', validation: /\w+/),
     password: UserInput.new(message: 'Password', secret: true),
     twofactor: UserInput.new(message: '2FA token', validation: /\d+/)
-  }
+  }.freeze
 
   ##
   # Authentication object
@@ -106,8 +106,8 @@ module Octoauth
     def delete_existing_token(client)
       headers = @options.subset(:headers)
       client.authorizations(headers)
-        .select { |x| x[:note] == note }
-        .map { |x| client.delete_authorization(x[:id], headers) }
+            .select { |x| x[:note] == note }
+            .map { |x| client.delete_authorization(x[:id], headers) }
     end
   end
 end

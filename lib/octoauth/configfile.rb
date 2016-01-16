@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'yaml'
 
 ##
@@ -5,7 +6,7 @@ require 'yaml'
 module Octoauth
   ##
   # Define default file path
-  DEFAULT_FILE = '~/.octoauth.yml'
+  DEFAULT_FILE = '~/.octoauth.yml'.freeze
 
   ##
   # Configuration object
