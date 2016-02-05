@@ -26,8 +26,8 @@ module Octoauth
     end
 
     def save
-      fail 'No token to save' unless token
-      fail 'No file given for config' unless config.file
+      raise 'No token to save' unless token
+      raise 'No file given for config' unless config.file
       config.token = token
       return unless @token_changed
       config.write

@@ -19,7 +19,7 @@ module Octoauth
     def initialize(params = {})
       @file = params[:file] == :default ? DEFAULT_FILE : params[:file]
       @file = File.expand_path(@file) if @file
-      @note = params[:note] || fail(ArgumentError, 'A note must be provided')
+      @note = params[:note] || raise(ArgumentError, 'A note must be provided')
       @token = parse
     end
 
