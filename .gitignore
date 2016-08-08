@@ -7,3 +7,4 @@ spec/examples/config_save_test.yml
 spec/examples/priv_test.yml
 spec/examples/autosave.yml
 spec/examples/nil.yml
+spec/examples/write_first_test.yml
