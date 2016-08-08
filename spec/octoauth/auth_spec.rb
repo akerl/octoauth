@@ -7,10 +7,6 @@ LOGIN = ENV['OCTOAUTH_LOGIN'] || 'user'
 PASSWORD = ENV['OCTOAUTH_PASSWORD'] || 'pw'
 TWOFACTOR = ENV['OCTOAUTH_TFA'] || '123456'
 
-##
-# Shim object for mocking auth resources
-AuthShim = Struct.new(:note, :token)
-
 describe Octoauth do
   describe Octoauth::Auth do
     describe '#initialize' do
