@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'octokit', '~> 4.4.0'
   s.add_dependency 'userinput', '~> 1.0.0'
 
-  s.add_development_dependency 'rubocop', '~> 0.44.1'
+  s.add_development_dependency 'rubocop', '~> 0.45.0'
   s.add_development_dependency 'rake', '~> 11.3.0'
   s.add_development_dependency 'codecov', '~> 0.1.1'
   s.add_development_dependency 'rspec', '~> 3.5.0'
