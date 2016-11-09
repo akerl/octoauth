@@ -1,3 +1,7 @@
+# 1.4.7 / 2016-11-08
+
+* [ENHANCEMENT] Update octokit to ~> 4.6.0
+
 # 1.4.6 / 2016-10-25
 
 * [ENHANCEMENT] Update octokit to ~> 4.4.0
