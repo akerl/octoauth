@@ -33,7 +33,7 @@ module Octoauth
 
     def get
       return {} unless @file && File.exist?(@file)
-      YAML.load File.read(File.expand_path(@file))
+      YAML.safe_load File.read(File.expand_path(@file))
     end
 
     def parse
