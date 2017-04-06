@@ -75,7 +75,7 @@ describe Octoauth do
             note: 'requesting_scopes',
             login: LOGIN,
             password: PASSWORD,
-            scopes: %w(gist delete_repo)
+            scopes: %w[gist delete_repo]
           )
           expect(auth.token).to eql 'token_with_scopes'
         end
