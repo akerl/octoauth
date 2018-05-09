@@ -1,3 +1,7 @@
+# 1.5.1 / 2018-05-08
+
+* [ENHANCEMENT] Update octokit to ~> 4.9.0
+
 # 1.5.0 / 2017-12-20
 
 * [ENHANCEMENT] Update octokit to ~> 4.8.0
