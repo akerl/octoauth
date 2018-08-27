@@ -2,7 +2,6 @@ octoauth
 =========
 
 [![Gem Version](https://img.shields.io/gem/v/octoauth.svg)](https://rubygems.org/gems/octoauth)
-[![Dependency Status](https://img.shields.io/gemnasium/akerl/octoauth.svg)](https://gemnasium.com/akerl/octoauth)
 [![Build Status](https://img.shields.io/circleci/project/akerl/octoauth/master.svg)](https://circleci.com/gh/akerl/octoauth)
 [![Coverage Status](https://img.shields.io/codecov/c/github/akerl/octoauth.svg)](https://codecov.io/github/akerl/octoauth)
 [![Code Quality](https://img.shields.io/codacy/648fd8ebe3374dd4acc5449b8922f2e0.svg)](https://www.codacy.com/app/akerl/octoauth)
