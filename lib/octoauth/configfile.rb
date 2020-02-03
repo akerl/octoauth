@@ -7,7 +7,7 @@ require 'yaml'
 module Octoauth
   ##
   # Define default file path
-  DEFAULT_FILE = '~/.octoauth.yml'.freeze
+  DEFAULT_FILE = '~/.octoauth.yml'
 
   ##
   # Configuration object
