@@ -1,3 +1,7 @@
+# 1.7.0 / 2020-05-12
+
+* [ENHANCEMENT] Update octokit to ~> 4.18.0
+
 # 1.6.0 / 2020-02-03
 
 * [ENHANCEMENT] Update octokit to ~> 4.15.0
