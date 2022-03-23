@@ -1,3 +1,7 @@
+# 1.9.0 / 2022-03-23
+
+* [ENHANCEMENT] Update octokit to ~> 4.22.0
+
 # 1.8.0 / 2021-01-23
 
 * [ENHANCEMENT] Update octokit to ~> 4.20.0
