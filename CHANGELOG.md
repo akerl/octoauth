@@ -1,3 +1,7 @@
+# 2.0.0 / 2022-10-21
+
+* [ENHANCEMENT] Update octokit to ~> 5.6.1. Note that GitHub has deprecated the password-based API for getting access tokens, so Octokit will no longer function.
+
 # 1.9.0 / 2022-03-23
 
 * [ENHANCEMENT] Update octokit to ~> 4.22.0
