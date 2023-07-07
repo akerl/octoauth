@@ -13,12 +13,12 @@ Gem::Specification.new do |s|
 
   s.files       = `git ls-files`.split
 
-  s.add_dependency 'octokit', '~> 5.6.1'
+  s.add_dependency 'octokit', '~> 6.1.1'
   s.add_dependency 'userinput', '~> 1.0.2'
 
   s.add_development_dependency 'goodcop', '~> 0.9.7'
-  s.add_development_dependency 'vcr', '~> 5.0.0'
-  s.add_development_dependency 'webmock', '~> 3.7.6'
+  s.add_development_dependency 'vcr', '~> 6.2.0'
+  s.add_development_dependency 'webmock', '~> 3.18.1'
 
   s.metadata['rubygems_mfa_required'] = 'true'
 end
