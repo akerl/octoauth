@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'octoauth'
-  s.version     = '2.0.2'
+  s.version     = '2.0.3'
 
   s.required_ruby_version = '>= 2.6'
 
