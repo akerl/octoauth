@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'octokit', '~> 10.0.0'
   s.add_dependency 'userinput', '~> 1.0.2'
 
-  s.add_development_dependency 'goodcop', '~> 0.9.8'
+  s.add_development_dependency 'goodcop', '~> 0.9.9'
   s.add_development_dependency 'vcr', '~> 6.3.1'
   s.add_development_dependency 'webmock', '~> 3.25.1'
 
